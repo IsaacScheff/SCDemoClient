@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
+//import logoImg from './assets/logo.png';
+import pStadiumImg from './assets/pokemonStadium.png';
 
 class MyGame extends Phaser.Scene
 {
@@ -10,21 +11,23 @@ class MyGame extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('logo', logoImg);
+        //this.load.image('logo', logoImg);
+        this.load.image('pStadium', pStadiumImg);
     }
       
     create ()
     {
-        const logo = this.add.image(400, 150, 'logo');
+        //const logo = this.add.image(400, 150, 'logo');
+        const pStadium = this.add.image(400, 350, 'pStadium');
       
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
+        // this.tweens.add({
+        //     targets: logo,
+        //     y: 450,
+        //     duration: 2000,
+        //     ease: "Power2",
+        //     yoyo: true,
+        //     loop: -1
+        // });
     }
 }
 
