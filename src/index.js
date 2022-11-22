@@ -9,39 +9,24 @@ import UIHandler from './helpers/UIHandler';
 import CharacterSelect from './scenes/CharacterSelect';
 import Game from './scenes/Game';
 import LoadingGame from './scenes/LoadingGame';
- 
-// class Game extends Phaser.Scene
-// {
-//     constructor()
-//     {
-//         super(Game);
-//     }
+import WelcomeScreen from './scenes/WelcomeScreen';
 
-//     preload ()
-//     {
-//         this.load.image('pStadium', pStadiumImg);
-//         this.load.image('jace', jaceImg);
-//         this.load.image('chandra', chandraImg);
-//     }
-      
-//     create ()
-//     {
-//         this.SocketHandler = new SocketHandler(this);
-//         this.UIHandler = new UIHandler(this);
-//         this.UIHandler.buildUI();
-        
-//         const pStadium = this.add.image(400, 240, 'pStadium');
-//         const jace = this.add.image(260, 140, 'jace');
-//         const chandra = this.add.image(550, 140, 'chandra');
-//     }
-// }
+import io from 'socket.io-client';
+
 
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: [CharacterSelect, Game, LoadingGame]
+    scene: [WelcomeScreen, CharacterSelect, Game, LoadingGame]
 };
 
 const game = new Phaser.Game(config);
+game.config.socket = io('http://localhost:3000');
+
+game.config.socket.on('connect', () => {
+    console.log('Connected!' + game.config.socket);
+});
+
+

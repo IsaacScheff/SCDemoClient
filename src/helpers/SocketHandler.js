@@ -1,11 +1,18 @@
+import { Game } from 'phaser';
 import io from 'socket.io-client';
 
 export default class SocketHandler {
     constructor(scene){
-        scene.socket = io('http://localhost:3000');
+        
+        scene.game.config.socket.on('oppoCharacter', (character, socketId) => {
+            if(socketId != scene.game.config.socket.id){
+                console.log("Opponent: " + character);
+                scene.game.config.opponentC = character;
+            }
+        });
 
-        scene.socket.on('connect', () => {
-            console.log('Connected!');
+        scene.game.config.socket.on('selectScreen', () => {
+            scene.scene.start("CharacterSelect"); 
         });
     }
 }

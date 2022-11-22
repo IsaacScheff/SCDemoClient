@@ -11,7 +11,7 @@ export default class CharacerSelect extends Phaser.Scene
 {
     constructor ()
     {
-        super('CharacerSelect');
+        super('CharacterSelect');
     }
 
     preload ()
@@ -27,11 +27,6 @@ export default class CharacerSelect extends Phaser.Scene
         this.SelectHandler = new SelectHandler(this);
         this.SelectHandler.buildSelections();
 
-        // jace.on('pointerdown', function () {
-        //     console.log("jace");
-        //     console.log(this);
-        //     this.socket.emit('characterSelect', "jace");
-        // });
         this.instructions = this.add.text(200, 500, 'Select Your Wizard', {fontSize: 40});
     }
 }
