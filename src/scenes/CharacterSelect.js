@@ -9,19 +9,16 @@ import SelectHandler from '../helpers/SelectHandler';
 
 export default class CharacerSelect extends Phaser.Scene
 {
-    constructor ()
-    {
+    constructor (){
         super('CharacterSelect');
     }
 
-    preload ()
-    {
+    preload (){
         this.load.image('jace', jaceImg);
         this.load.image('chandra', chandraImg);
     }
       
-    create ()
-    {
+    create (){
         this.SocketHandler = new SocketHandler(this);
      
         this.SelectHandler = new SelectHandler(this);
@@ -29,6 +26,7 @@ export default class CharacerSelect extends Phaser.Scene
 
         this.instructions = this.add.text(200, 500, 'Select Your Wizard', {fontSize: 40});
     }
+
 }
 
 

@@ -8,14 +8,14 @@ export default class SelectHandler {
             jace.on('pointerdown', function () {
                 console.log("jace");
                 scene.game.config.socket.emit('characterSelect', "jace", scene.game.config.socket.id);
-                scene.scene.start("LoadingGame", {character: 'jace'}); 
+                scene.scene.start("LoadingGame"); 
                 scene.game.config.playerC = 'jace';
             });
 
             chandra.on('pointerdown', function () {
                 console.log("chandra");
                 scene.game.config.socket.emit('characterSelect', 'chandra', scene.game.config.socket.id);
-                scene.scene.start("LoadingGame", {character: 'chandra'}); 
+                scene.scene.start("LoadingGame"); 
                 scene.game.config.playerC = 'chandra';
             });
         }

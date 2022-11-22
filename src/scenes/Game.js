@@ -21,15 +21,16 @@ export default class Game extends Phaser.Scene
         this.load.image('chandra', chandraImg);
     }
       
-    create (data)
+    create ()
     {
         this.SocketHandler = new SocketHandler(this);
         this.UIHandler = new UIHandler(this);
         this.UIHandler.buildUI();
         
         const pStadium = this.add.image(400, 240, 'pStadium').setInteractive();
-        const playerCharacter = this.add.image(260, 140, data.character);
-        const chandra = this.add.image(550, 140, 'chandra');
+        const playerCharacter = this.add.image(260, 140, this.game.config.playerC);
+        const oppoCharacter = this.add.image(550, 140, this.game.config.opponentC);
+        oppoCharacter.flipX = true;
     }
 }
 

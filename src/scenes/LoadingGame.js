@@ -20,12 +20,20 @@ export default class LoadingGame extends Phaser.Scene
         this.load.image('chandra', chandraImg);
     }
       
-    create (data)
+    create ()
     {
-        const character = this.add.image(400, 140, data.character);
+        const character = this.add.image(400, 140, this.game.config.playerC);
 
-        this.loadText = this.add.text(230, 400, 'You have selected ' + data.character, {fontSize: 24});
+        this.loadText = this.add.text(230, 400, 'You have selected ' + this.game.config.playerC, {fontSize: 24});
         this.waitText = this.add.text(250, 450, 'Waiting for opponent', {fontSize: 24});
+    }
+
+
+    update () {
+        if(this.game.config.opponentC && this.game.config.playerC){
+            console.log(this.game.config.opponentC, this.game.config.playerC);
+            this.scene.start("Game");
+        }
     }
 }
 
