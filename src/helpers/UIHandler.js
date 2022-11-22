@@ -17,6 +17,19 @@ export default class UIHandler {
            
         }
 
+        this.updateStats = () => {
+            scene.PlayerHealth.setText("Health:" + scene.playerStats.health);
+            scene.OpHealth.setText("Health:" + scene.opStats.health);
+            scene.PlayerSAN.setText("SAN:" + scene.playerStats.san);
+            scene.OpSAN.setText("SAN:" + scene.opStats.san);
+            scene.PlayerCHO.setText("CHO:" + scene.playerStats.cho);
+            scene.OpCHO.setText("CHO:" + scene.opStats.cho);
+            scene.PlayerMEL.setText("MEL:" + scene.playerStats.mel);
+            scene.OpMEL.setText("MEL:" + scene.opStats.mel);
+            scene.PlayerPHLEG.setText("PHLEG:" + scene.playerStats.phleg);
+            scene.OpPHLEG.setText("PHLEG:" + scene.opStats.phleg);
+        }
+
         this.buildUI = () => {
             this.buildStats();
         }
