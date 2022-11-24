@@ -2,8 +2,6 @@ export default class UIHandler {
     constructor(scene) {
 
         this.buildStats = () => {
-            scene.dealCards = scene.add.text(960, 445, "Deal Cards").setFontSize(14).setFontFamily('Trebuchet MS');
-
             scene.PlayerHealth = scene.add.text(20, 20, 'Health:');
             scene.OpHealth = scene.add.text(690, 20, 'Health:');
             scene.PlayerSAN = scene.add.text(20, 35, 'SAN:');
@@ -14,7 +12,9 @@ export default class UIHandler {
             scene.OpMEL = scene.add.text(690, 65, 'MEL:');
             scene.PlayerPHLEG = scene.add.text(20, 80, 'PHLEG:');
             scene.OpPHLEG = scene.add.text(690, 80, 'PHLEG:');
-           
+
+            scene.PlayerHumor = scene.add.text(190, 220, 'Channel Humor').setVisible(false);
+            scene.OpHumor = scene.add.text(505, 220, 'Chanel Humor').setVisible(false);
         }
 
         this.updateStats = () => {
@@ -28,6 +28,9 @@ export default class UIHandler {
             scene.OpMEL.setText("MEL:" + scene.opStats.mel);
             scene.PlayerPHLEG.setText("PHLEG:" + scene.playerStats.phleg);
             scene.OpPHLEG.setText("PHLEG:" + scene.opStats.phleg);
+
+            //scene.PlayerHumor.setText(scene.playerStats.activeHumor).setVisible();
+            //scene.OpHumor.setText(scene.opStats.activeHumor).setVisible();
         }
 
         this.buildUI = () => {
