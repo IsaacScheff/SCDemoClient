@@ -14,5 +14,15 @@ export default class SocketHandler {
         scene.game.config.socket.on('selectScreen', () => {
             scene.scene.start("CharacterSelect"); 
         });
+
+        scene.game.config.socket.on('yourePlayerA', () => {
+            scene.game.config.playerA = true;
+            console.log(scene.game.config.playerA);
+        });
+
+        scene.game.config.socket.on('yourePlayerB', () => {
+            scene.game.config.playerA = false;
+            console.log(scene.game.config.playerA);
+        });
     }
 }
