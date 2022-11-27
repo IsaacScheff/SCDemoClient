@@ -31,7 +31,7 @@ export default class LoadingGame extends Phaser.Scene
 
     update () {
         if(this.game.config.opponentC && this.game.config.playerC){
-            console.log(this.game.config.opponentC, this.game.config.playerC);
+            //console.log(this.game.config.opponentC, this.game.config.playerC);
             this.scene.start("Game");
         }
     }

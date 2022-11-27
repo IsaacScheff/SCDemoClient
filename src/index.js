@@ -27,6 +27,10 @@ game.config.socket = io('http://localhost:3000');
 
 game.config.socket.on('connect', () => {
     console.log('Connected!' + game.config.socket);
+    console.log(game.config);
 });
+
+game.config.SocketHandler = new SocketHandler(game);
+//how do I pass in the scene, alternatively all the variables being put on scene right now could be put on game instead 
 
 

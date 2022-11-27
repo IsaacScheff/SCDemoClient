@@ -1,28 +1,39 @@
-import { Game } from 'phaser';
-import io from 'socket.io-client';
+import TurnHandler from './TurnHandler';
+export default class SocketHandler { 
+    constructor(game){
+        //scene.TurnHandler = new TurnHandler(scene);
+        game.config.TurnHandler = new TurnHandler(game);
 
-export default class SocketHandler {
-    constructor(scene){
-        
-        scene.game.config.socket.on('oppoCharacter', (character, socketId) => {
-            if(socketId != scene.game.config.socket.id){
-                console.log("Opponent: " + character);
-                scene.game.config.opponentC = character;
+        game.config.socket.on('oppoCharacter', (character, socketId) => {
+            if(socketId != game.config.socket.id){
+                //console.log("Opponent: " + character);
+                game.config.opponentC = character;
             }
         });
 
-        scene.game.config.socket.on('selectScreen', () => {
-            scene.scene.start("CharacterSelect"); 
+        game.config.socket.on('selectScreen', () => {
+            //console.log('game: ', game); 
+            game.scene.stop("WelcomeScreen");
+            game.scene.start("CharacterSelect");
         });
 
-        scene.game.config.socket.on('yourePlayerA', () => {
-            scene.game.config.playerA = true;
-            console.log(scene.game.config.playerA);
+        game.config.socket.on('yourePlayerA', () => {
+            game.config.playerA = true;
         });
 
-        scene.game.config.socket.on('yourePlayerB', () => {
-            scene.game.config.playerA = false;
-            console.log(scene.game.config.playerA);
+        game.config.socket.on('yourePlayerB', () => {
+            game.config.playerA = false;
+        });
+    
+        game.config.socket.on('playerMoves', (playerAMove, playerBMove) => {
+            if(game.config.playerA == true){
+                //scene.TurnHandler.resolveMove(playerBMove, 'opStats');
+                game.config.TurnHandler.resolveMove(playerAMove, 'playerStats');
+                game.config.TurnHandler.resolveMove(playerBMove, 'opStats');
+            }else{
+                game.config.TurnHandler.resolveMove(playerBMove, 'playerStats');
+                game.config.TurnHandler.resolveMove(playerAMove, 'opStats');
+            }
         });
     }
 }

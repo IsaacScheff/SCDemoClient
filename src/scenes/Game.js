@@ -3,7 +3,6 @@ import pStadiumImg from '../assets/pokemonStadium.png';
 import jaceImg from '../assets/lilJace.png';
 import chandraImg from '../assets/lilChandra.png';
 
-import SocketHandler from '../helpers/socketHandler';
 import UIHandler from '../helpers/UIHandler';
 import StatHandler from '../helpers/StatHandler';
 import ButtonHandler from '../helpers/ButtonHandler';
@@ -11,30 +10,27 @@ import ButtonHandler from '../helpers/ButtonHandler';
 
 export default class Game extends Phaser.Scene
 {
-    constructor()
-    {
+    constructor(){
         super('Game');
     }
 
-    preload ()
-    {
+    preload (){
         this.load.image('pStadium', pStadiumImg);
         this.load.image('jace', jaceImg);
         this.load.image('chandra', chandraImg);
     }
       
-    create ()
-    {
-        this.SocketHandler = new SocketHandler(this);
+    create (){
         this.UIHandler = new UIHandler(this);
         this.UIHandler.buildUI();
-        this.StatHandler = new StatHandler(this);
         this.ButtonHandler = new ButtonHandler(this);
         this.ButtonHandler.startingHumor();
+        
+        this.game.config.StatHandler = new StatHandler(this.game);
 
-        this.playerStats = this.StatHandler.initialStats(this.game.config.playerC);
-        this.opStats = this.StatHandler.initialStats(this.game.config.opponentC);
-        console.log(this.playerStats + this.opStats);
+        this.game.config.playerStats = this.game.config.StatHandler.initialStats(this.game.config.playerC);
+        this.game.config.opStats = this.game.config.StatHandler.initialStats(this.game.config.opponentC);
+        //console.log(this.game.config.playerStats + this.game.config.opStats);
         
         const pStadium = this.add.image(400, 240, 'pStadium');
         const playerCharacter = this.add.image(260, 140, this.game.config.playerC);

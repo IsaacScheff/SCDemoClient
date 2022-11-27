@@ -11,26 +11,26 @@ export default class UIHandler {
             scene.PlayerMEL = scene.add.text(20, 65, 'MEL:');
             scene.OpMEL = scene.add.text(690, 65, 'MEL:');
             scene.PlayerPHLEG = scene.add.text(20, 80, 'PHLEG:');
-            scene.OpPHLEG = scene.add.text(690, 80, 'PHLEG:');
+            scene.OpPHLEG = scene.add.text(690, 80, 'PHLEG:'); 
 
-            scene.PlayerHumor = scene.add.text(190, 220, 'Channel Humor').setVisible(false);
-            scene.OpHumor = scene.add.text(505, 220, 'Chanel Humor').setVisible(false);
+            scene.PlayerHumor = scene.add.text(220, 60, 'Channel Humor')//.setVisible(false);
+            scene.OpHumor = scene.add.text(510, 60, 'Chanel Humor')//.setVisible(false);
         }
 
         this.updateStats = () => {
-            scene.PlayerHealth.setText("Health:" + scene.playerStats.health);
-            scene.OpHealth.setText("Health:" + scene.opStats.health);
-            scene.PlayerSAN.setText("SAN:" + scene.playerStats.san);
-            scene.OpSAN.setText("SAN:" + scene.opStats.san);
-            scene.PlayerCHO.setText("CHO:" + scene.playerStats.cho);
-            scene.OpCHO.setText("CHO:" + scene.opStats.cho);
-            scene.PlayerMEL.setText("MEL:" + scene.playerStats.mel);
-            scene.OpMEL.setText("MEL:" + scene.opStats.mel);
-            scene.PlayerPHLEG.setText("PHLEG:" + scene.playerStats.phleg);
-            scene.OpPHLEG.setText("PHLEG:" + scene.opStats.phleg);
+            scene.PlayerHealth.setText("Health:" + scene.game.config.playerStats.health);
+            scene.OpHealth.setText("Health:" + scene.game.config.opStats.health);
+            scene.PlayerSAN.setText("SAN:" + scene.game.config.playerStats.san);
+            scene.OpSAN.setText("SAN:" + scene.game.config.opStats.san);
+            scene.PlayerCHO.setText("CHO:" + scene.game.config.playerStats.cho);
+            scene.OpCHO.setText("CHO:" + scene.game.config.opStats.cho);
+            scene.PlayerMEL.setText("MEL:" + scene.game.config.playerStats.mel);
+            scene.OpMEL.setText("MEL:" + scene.game.config.opStats.mel);
+            scene.PlayerPHLEG.setText("PHLEG:" + scene.game.config.playerStats.phleg);
+            scene.OpPHLEG.setText("PHLEG:" + scene.game.config.opStats.phleg);
 
-            //scene.PlayerHumor.setText(scene.playerStats.activeHumor).setVisible();
-            //scene.OpHumor.setText(scene.opStats.activeHumor).setVisible();
+            scene.PlayerHumor.setText(scene.game.config.playerStats.humor)//.setVisible(true);
+            scene.OpHumor.setText(scene.game.config.opStats.humor)//.setVisible(true);
         }
 
         this.buildUI = () => {
