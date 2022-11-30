@@ -1,26 +1,33 @@
 export default class TurnHandler {
     constructor(game) {
 
-        // this.fullTurn = (playerAMove, playerBMove) => {
-        //     this.resolveMove(playerAMove, 'playerStats');
-        //     this.resolveMove(playerBMove, 'opStats');
-        // }
+        this.parseMoves = (moves) => {
+            const moveArray = moves.split(",");
+            //console.log(moveArray);
+            const playerAMove = moveArray.slice(0, 2);
+            //console.log(playerAMove);
+            const playerBMove = moveArray.slice(2, 4);
+            //console.log(playerBMove);
+            //console.log(game.config.playerA);
+            const playerA = (game.config.playerA ? 'playerStats' : 'opStats');
+            const playerB = (game.config.playerA ? 'opStats' : 'playerStats');
+            //console.log(game.config.playerA, playerA, playerB);
+            this.resolveMove(playerAMove, playerA);
+            this.resolveMove(playerBMove, playerB);
+        }
 
         this.resolveMove = (move, player) => {
-            let moveArray = move.split(",");
-            //console.log(moveArray);
-
-            switch(moveArray[0]){
+            switch(move[0]){
                 case 'humor':
-                    //console.log(moveArray[0], moveArray[1], player);
-                    this.humorChange(moveArray[1], player);
+                    console.log(move, player);
+                    this.humorChange(move[1], player);
                     break;
                 case 'spell':
                     break;
                 case 'equip': 
                     break;
                 default:
-                    console.log('parseMove function, move type provided not a match: ' + moveArray);
+                    console.log('resolveMove function, move type provided not a match: ' + move);
             }
         }
         
@@ -36,6 +43,16 @@ export default class TurnHandler {
         
         this.equipmentChange = () => {
         
+        }
+
+        this.startTurn = () => {
+            const scene = game.scene.scenes[2];
+
+            scene.waitText.setVisible(false);
+            //console.log(scene.HumorButton);
+            scene.HumorButton.button.setVisible(true);
+            scene.SpellButton.button.setVisible(true);
+            scene.EquipButton.button.setVisible(true);
         }
 
     }

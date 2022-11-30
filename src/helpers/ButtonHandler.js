@@ -9,10 +9,52 @@ class HumorButton {
             scene.CholericButton.button.setVisible(false); 
             scene.MelancholycButton.button.setVisible(false);
             scene.PhlegmaticButton.button.setVisible(false);
+            scene.waitText.setVisible(true);
             scene.game.config.socket.emit('moveSelection', 'humor', humor); 
             //moveSelection can be channeling humor, casting a spell, or changing equipment
-            //don't locally change the humor, wait for socket message back so changes are not staggered
         });
+    }
+}
+
+class moveTypeButton {
+    constructor(scene, type, x, y){
+        this.button = scene.add.text(x, y, type).setFontSize(30).setInteractive().setVisible(false);
+
+        // this.button.on('pointerdown', function () {
+        //     console.log(type, 'button clicked');
+        // });
+
+        this.clearOptions = () => {
+            scene.HumorButton.button.setVisible(false);
+            scene.SpellButton.button.setVisible(false);
+            scene.EquipButton.button.setVisible(false);
+        }
+
+        switch(type){
+            case 'humor':
+                this.typeFunction = () => {
+                    this.clearOptions();
+                    scene.SanguineButton.button.setVisible(true);
+                    scene.CholericButton.button.setVisible(true);
+                    scene.MelancholycButton.button.setVisible(true);
+                    scene.PhlegmaticButton.button.setVisible(true);
+                }
+                break;
+            case 'spell':
+                this.typeFunction = () => {
+                    
+                }
+                break;
+            case 'equip':
+                this.typeFunction = () => {
+                    
+                }
+                break;
+            default:
+                console.log('moveTypeButton switch statment failed, type: ', type);
+        }
+
+        this.button.on('pointerdown', this.typeFunction);
     }
 }
 
@@ -27,6 +69,12 @@ export default class ButtonHandler {
             scene.CholericButton = new HumorButton(scene, 'Choleric', 350, 490, "yellow");
             scene.MelancholycButton = new HumorButton(scene, 'Melancholy', 150, 540, "green");
             scene.PhlegmaticButton = new HumorButton(scene, 'Phlegmatic', 350, 540, "gray");
+        }
+
+        this.moveType = () => {
+            scene.HumorButton = new moveTypeButton(scene, 'humor', 205, 520);
+            scene.SpellButton = new moveTypeButton(scene, 'spell', 355, 520);
+            scene.EquipButton = new moveTypeButton(scene, 'equip', 505, 520);
         }
     }
 }

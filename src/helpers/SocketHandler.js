@@ -21,19 +21,13 @@ export default class SocketHandler {
             game.config.playerA = true;
         });
 
-        game.config.socket.on('yourePlayerB', () => {
-            game.config.playerA = false;
-        });
+        // game.config.socket.on('yourePlayerB', () => { //redundant 
+        //     game.config.playerA = false;
+        // });
     
-        game.config.socket.on('playerMoves', (playerAMove, playerBMove) => {
-            if(game.config.playerA == true){
-                //scene.TurnHandler.resolveMove(playerBMove, 'opStats');
-                game.config.TurnHandler.resolveMove(playerAMove, 'playerStats');
-                game.config.TurnHandler.resolveMove(playerBMove, 'opStats');
-            }else{
-                game.config.TurnHandler.resolveMove(playerBMove, 'playerStats');
-                game.config.TurnHandler.resolveMove(playerAMove, 'opStats');
-            }
+        game.config.socket.on('playerMoves', (playerMoves) => {
+            game.config.TurnHandler.parseMoves(playerMoves);
+            game.config.TurnHandler.startTurn();
         });
     }
 }

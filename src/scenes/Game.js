@@ -25,6 +25,7 @@ export default class Game extends Phaser.Scene
         this.UIHandler.buildUI();
         this.ButtonHandler = new ButtonHandler(this);
         this.ButtonHandler.startingHumor();
+        this.ButtonHandler.moveType();
         
         this.game.config.StatHandler = new StatHandler(this.game);
 

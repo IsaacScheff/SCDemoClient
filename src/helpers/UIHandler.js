@@ -13,8 +13,10 @@ export default class UIHandler {
             scene.PlayerPHLEG = scene.add.text(20, 80, 'PHLEG:');
             scene.OpPHLEG = scene.add.text(690, 80, 'PHLEG:'); 
 
-            scene.PlayerHumor = scene.add.text(220, 60, 'Channel Humor')//.setVisible(false);
-            scene.OpHumor = scene.add.text(510, 60, 'Chanel Humor')//.setVisible(false);
+            scene.PlayerHumor = scene.add.text(220, 60, 'Humor Text')//.setVisible(false);
+            scene.OpHumor = scene.add.text(510, 60, 'Humor Text')//.setVisible(false);
+
+            scene.waitText = scene.add.text(300, 520, 'Waiting for opponent...').setVisible(false);
         }
 
         this.updateStats = () => {
@@ -36,5 +38,6 @@ export default class UIHandler {
         this.buildUI = () => {
             this.buildStats();
         }
+
     }
 }
