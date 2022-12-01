@@ -22,14 +22,14 @@ export default class UIHandler {
         this.updateStats = () => {
             scene.PlayerHealth.setText("Health:" + scene.game.config.playerStats.health);
             scene.OpHealth.setText("Health:" + scene.game.config.opStats.health);
-            scene.PlayerSAN.setText("SAN:" + scene.game.config.playerStats.san);
-            scene.OpSAN.setText("SAN:" + scene.game.config.opStats.san);
-            scene.PlayerCHO.setText("CHO:" + scene.game.config.playerStats.cho);
-            scene.OpCHO.setText("CHO:" + scene.game.config.opStats.cho);
-            scene.PlayerMEL.setText("MEL:" + scene.game.config.playerStats.mel);
-            scene.OpMEL.setText("MEL:" + scene.game.config.opStats.mel);
-            scene.PlayerPHLEG.setText("PHLEG:" + scene.game.config.playerStats.phleg);
-            scene.OpPHLEG.setText("PHLEG:" + scene.game.config.opStats.phleg);
+            scene.PlayerSAN.setText("SAN:" + scene.game.config.playerStats.Sanguine);
+            scene.OpSAN.setText("SAN:" + scene.game.config.opStats.Sanguine);
+            scene.PlayerCHO.setText("CHO:" + scene.game.config.playerStats.Choleric);
+            scene.OpCHO.setText("CHO:" + scene.game.config.opStats.Choleric);
+            scene.PlayerMEL.setText("MEL:" + scene.game.config.playerStats.Melancholy);
+            scene.OpMEL.setText("MEL:" + scene.game.config.opStats.Melancholy);
+            scene.PlayerPHLEG.setText("PHLEG:" + scene.game.config.playerStats.Phlegmatic);
+            scene.OpPHLEG.setText("PHLEG:" + scene.game.config.opStats.Phlegmatic);
 
             scene.PlayerHumor.setText(scene.game.config.playerStats.humor)//.setVisible(true);
             scene.OpHumor.setText(scene.game.config.opStats.humor)//.setVisible(true);

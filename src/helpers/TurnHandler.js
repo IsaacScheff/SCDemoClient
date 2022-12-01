@@ -46,13 +46,26 @@ export default class TurnHandler {
         }
 
         this.startTurn = () => {
-            const scene = game.scene.scenes[2];
+            const scene = game.scene.scenes[2]; 
 
             scene.waitText.setVisible(false);
+            this.turnUpdates();
             //console.log(scene.HumorButton);
             scene.HumorButton.button.setVisible(true);
             scene.SpellButton.button.setVisible(true);
             scene.EquipButton.button.setVisible(true);
+        }
+
+        this.turnUpdates = () => {
+            this.humorChanneling('playerStats');
+            this.humorChanneling('opStats');
+        }
+
+        this.humorChanneling = (player) => {
+            const humor = game.config[player].humor;
+            //console.log(game.config[player][game.config[player]['humor']]);
+            game.config[player][humor] += 25;
+            //console.log(humor);
         }
 
     }
