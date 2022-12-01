@@ -1,3 +1,5 @@
+import { items } from "../dictionaries/items";
+//import { spells } from "../dictionaries/spells";
 class HumorButton {
     constructor(scene, humor, x, y, color){
         this.button = scene.add.text(x, y, humor, {color: color}).setFontSize(20).setInteractive();
@@ -11,7 +13,38 @@ class HumorButton {
             scene.PhlegmaticButton.button.setVisible(false);
             scene.waitText.setVisible(true);
             scene.game.config.socket.emit('moveSelection', 'humor', humor); 
-            //moveSelection can be channeling humor, casting a spell, or changing equipment
+        });
+    }
+}
+
+class spellButton { 
+    constructor(scene, spell, x, y){
+        const spellName = spell.slice(2);
+        console.log(spellName);
+        this.button = scene.add.text(x, y, spell.slice(2)).setFontSize(20).setInteractive();
+
+        this.button.on('pointerdown', function () {
+            for (const button in scene.spellButtons){
+                scene.spellButtons[button].button.destroy();
+            }
+            delete scene.spellButtons;
+            scene.waitText.setVisible(true);
+            scene.game.config.socket.emit('moveSelection', 'spell', spell); 
+        });
+    }
+}
+
+class equipButton {
+    constructor(scene, item, x, y){
+        this.button = scene.add.text(x, y, item).setFontSize(20).setInteractive();
+
+        this.button.on('pointerdown', function () {
+            for (const button in scene.equipButtons){
+                scene.equipButtons[button].button.destroy();
+            }
+            delete scene.equipButtons;
+            scene.waitText.setVisible(true);
+            scene.game.config.socket.emit('moveSelection', 'equip', item); 
         });
     }
 }
@@ -19,10 +52,6 @@ class HumorButton {
 class moveTypeButton {
     constructor(scene, type, x, y){
         this.button = scene.add.text(x, y, type).setFontSize(30).setInteractive().setVisible(false);
-
-        // this.button.on('pointerdown', function () {
-        //     console.log(type, 'button clicked');
-        // });
 
         this.clearOptions = () => {
             scene.HumorButton.button.setVisible(false);
@@ -43,18 +72,23 @@ class moveTypeButton {
             case 'spell':
                 this.typeFunction = () => {
                     this.clearOptions();
-                    //temporary hard coding of fireball for everyone
-                    scene.fireballButton = scene.add.text(355, 520, 'Fireball!').setInteractive();
-                    scene.fireballButton.on('pointerdown', function () {
-                        scene.fireballButton.setVisible(false);
-                        scene.waitText.setVisible(true);
-                        scene.game.config.socket.emit('moveSelection', 'spell', 'spFireball'); 
+                    
+                    scene.spellButtons = {};
+                    items[scene.game.config.playerStats.itemEquipped].forEach(function (spell, index) {
+                        const buttonName = spell + 'Button';
+                        scene.spellButtons[buttonName] = new spellButton(scene, spell, 200 + 150 * index, 540);
                     });
                 }
                 break;
             case 'equip':
                 this.typeFunction = () => {
-                    //this.clearOptions();
+                    this.clearOptions();
+                    
+                    scene.equipButtons = {};
+                    scene.game.config.playerStats.itemArray.forEach(function (item, index) {
+                        const buttonName = item + 'Button';
+                        scene.equipButtons[buttonName] = new equipButton(scene, item, 200 + 150 * index, 540);
+                    });
                 }
                 break;
             default:
@@ -64,7 +98,6 @@ class moveTypeButton {
         this.button.on('pointerdown', this.typeFunction);
     }
 }
-
 
 export default class ButtonHandler {
     constructor(scene) {

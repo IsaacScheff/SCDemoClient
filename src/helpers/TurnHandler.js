@@ -20,14 +20,16 @@ export default class TurnHandler {
         this.resolveMove = (move, player) => {
             switch(move[0]){
                 case 'humor':
-                    console.log(move, player);
+                    //console.log(move, player);
                     this.humorChange(move[1], player);
                     break;
                 case 'spell':
-                    console.log(move, player);
+                    //console.log(move, player);
                     spells[move[1]](game, player);
                     break;
                 case 'equip': 
+                    //console.log(move, player);
+                    this.equipmentChange(move[1], player);
                     break;
                 default:
                     console.log('resolveMove function, move type provided not a match: ' + move);
@@ -35,22 +37,23 @@ export default class TurnHandler {
         }
         
         this.humorChange = (humor, player) => {
-            //console.log(game.config/*[player]*/);
             game.config[player].humor = humor;
             //console.log(game.config[player]);
         }
         
         this.spellCast = () => {
-        
+            //this is currently superflous, but may be a beter option in the future
         }
         
-        this.equipmentChange = () => {
-        
+        this.equipmentChange = (item, player) => {
+            game.config[player].itemEquipped = item;
+            //console.log(game.config[player]);
         }
 
         this.startTurn = () => {
-            const scene = game.scene.scenes[2]; 
-
+            const scene = game.scene.scenes[2];
+            
+            this.checkWinCon();
             scene.waitText.setVisible(false);
             this.turnUpdates();
             scene.HumorButton.button.setVisible(true);
@@ -69,5 +72,28 @@ export default class TurnHandler {
             game.config[player][humor] += 25;
         }
 
+        this.checkWinCon = () => {
+            if(game.config.playerStats.health <= 0){
+                if(game.config.opStats.health <= 0){
+                    console.log("It's a tie!");
+                    //this.endGame('tie');
+                }else{
+                    console.log("You lose!");
+                    //this.endGame('lose');
+                }
+            }else if(game.config.opStats.health <= 0){
+                console.log("You Win!");
+                //this.endGame('win');
+            }
+        }
+        /* this is where we get into tricky terrotory with cheating, 
+            for the purposes of the demo it's fine to handle the win/lost
+            locally, but when it comes to a wider release will need the
+            server to be able to verify results. Maybe ultimately the gamelogic wil need
+            to be server side to verify accuracy 
+        */
+        this.endGame = () => { //maybe could take the result as parameter? 
+            //probably for now just transition to a win, lose, or tie screen 
+        }
     }
 }

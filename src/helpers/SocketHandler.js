@@ -19,6 +19,7 @@ export default class SocketHandler {
 
         game.config.socket.on('yourePlayerA', () => {
             game.config.playerA = true;
+            console.log("received you're playerA");
         });
 
         // game.config.socket.on('yourePlayerB', () => { //redundant 

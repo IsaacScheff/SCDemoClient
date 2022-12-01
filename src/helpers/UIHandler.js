@@ -16,6 +16,9 @@ export default class UIHandler {
             scene.PlayerHumor = scene.add.text(220, 60, 'Humor Text')//.setVisible(false);
             scene.OpHumor = scene.add.text(510, 60, 'Humor Text')//.setVisible(false);
 
+            scene.PlayerItem = scene.add.text(220, 30, 'item equipped');
+            scene.OpItem = scene.add.text(510, 30, 'item equipped');
+
             scene.waitText = scene.add.text(300, 520, 'Waiting for opponent...').setVisible(false);
         }
 
@@ -33,6 +36,9 @@ export default class UIHandler {
 
             scene.PlayerHumor.setText(scene.game.config.playerStats.humor)//.setVisible(true);
             scene.OpHumor.setText(scene.game.config.opStats.humor)//.setVisible(true);
+
+            scene.PlayerItem.setText(scene.game.config.playerStats.itemEquipped);
+            scene.OpItem.setText(scene.game.config.opStats.itemEquipped);
         }
 
         this.buildUI = () => {
