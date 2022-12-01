@@ -1,3 +1,4 @@
+import { spells } from "../dictionaries/spells";
 export default class TurnHandler {
     constructor(game) {
 
@@ -23,6 +24,8 @@ export default class TurnHandler {
                     this.humorChange(move[1], player);
                     break;
                 case 'spell':
+                    console.log(move, player);
+                    spells[move[1]](game, player);
                     break;
                 case 'equip': 
                     break;
@@ -50,7 +53,6 @@ export default class TurnHandler {
 
             scene.waitText.setVisible(false);
             this.turnUpdates();
-            //console.log(scene.HumorButton);
             scene.HumorButton.button.setVisible(true);
             scene.SpellButton.button.setVisible(true);
             scene.EquipButton.button.setVisible(true);
@@ -62,10 +64,9 @@ export default class TurnHandler {
         }
 
         this.humorChanneling = (player) => {
+            //game.config[player][game.config[player].humor] += 25; 
             const humor = game.config[player].humor;
-            //console.log(game.config[player][game.config[player]['humor']]);
             game.config[player][humor] += 25;
-            //console.log(humor);
         }
 
     }

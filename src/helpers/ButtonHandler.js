@@ -42,12 +42,19 @@ class moveTypeButton {
                 break;
             case 'spell':
                 this.typeFunction = () => {
-                    
+                    this.clearOptions();
+                    //temporary hard coding of fireball for everyone
+                    scene.fireballButton = scene.add.text(355, 520, 'Fireball!').setInteractive();
+                    scene.fireballButton.on('pointerdown', function () {
+                        scene.fireballButton.setVisible(false);
+                        scene.waitText.setVisible(true);
+                        scene.game.config.socket.emit('moveSelection', 'spell', 'spFireball'); 
+                    });
                 }
                 break;
             case 'equip':
                 this.typeFunction = () => {
-                    
+                    //this.clearOptions();
                 }
                 break;
             default:
