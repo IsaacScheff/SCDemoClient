@@ -1,23 +1,21 @@
+class CharacterSelect {
+    constructor(scene, character, x, y){
+        let characterIcon  = scene.add.image(x, y, character).setInteractive();
+
+        characterIcon.on('pointerdown', function () {
+            scene.game.config.socket.emit('characterSelect', character);
+            scene.scene.start("LoadingGame"); 
+            scene.game.config.playerC = character;
+        });
+    }
+}
+
 export default class SelectHandler {
     constructor(scene){
 
         this.buildSelections = () => {
-            let jace = scene.add.image(260, 140, 'jace').setInteractive();
-            let chandra = scene.add.image(550, 140, 'chandra').setInteractive();
-
-            jace.on('pointerdown', function () {
-                //console.log("jace");
-                scene.game.config.socket.emit('characterSelect', "jace");
-                scene.scene.start("LoadingGame"); 
-                scene.game.config.playerC = 'jace';
-            });
-
-            chandra.on('pointerdown', function () {
-                //console.log("chandra");
-                scene.game.config.socket.emit('characterSelect', 'chandra');
-                scene.scene.start("LoadingGame"); 
-                scene.game.config.playerC = 'chandra';
-            });
+            let jace = new CharacterSelect(scene, 'jace', 260, 140);
+            let chandra = new CharacterSelect(scene, 'chandra', 550, 140);
         }
     }
 }

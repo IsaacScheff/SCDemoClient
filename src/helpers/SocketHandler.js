@@ -5,7 +5,9 @@ export default class SocketHandler {
         game.config.TurnHandler = new TurnHandler(game);
 
         game.config.socket.on('oppoCharacter', (character, socketId) => {
+            console.log('received oppoChracter message');
             if(socketId != game.config.socket.id){
+                console.log("Oppo selected: " + character)
                 //console.log("Opponent: " + character);
                 game.config.opponentC = character;
             }
@@ -21,14 +23,17 @@ export default class SocketHandler {
             game.config.playerA = true;
             console.log("received you're playerA");
         });
-
-        // game.config.socket.on('yourePlayerB', () => { //redundant 
-        //     game.config.playerA = false;
-        // });
     
         game.config.socket.on('playerMoves', (playerMoves) => {
             game.config.TurnHandler.parseMoves(playerMoves);
             game.config.TurnHandler.startTurn();
+        });
+
+        game.config.socket.on('opponentDisconnect', () => {
+            console.log("Opponent disconnected");
+            game.config.result = 'disconnect';
+            game.scene.stop("Game");
+            game.scene.start("ResultScreen");
         });
     }
 }

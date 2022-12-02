@@ -76,14 +76,14 @@ export default class TurnHandler {
             if(game.config.playerStats.health <= 0){
                 if(game.config.opStats.health <= 0){
                     console.log("It's a tie!");
-                    //this.endGame('tie');
+                    this.endGame('draw');
                 }else{
                     console.log("You lose!");
-                    //this.endGame('lose');
+                    this.endGame('lose');
                 }
             }else if(game.config.opStats.health <= 0){
                 console.log("You Win!");
-                //this.endGame('win');
+                this.endGame('win');
             }
         }
         /* this is where we get into tricky terrotory with cheating, 
@@ -92,8 +92,10 @@ export default class TurnHandler {
             server to be able to verify results. Maybe ultimately the gamelogic wil need
             to be server side to verify accuracy 
         */
-        this.endGame = () => { //maybe could take the result as parameter? 
-            //probably for now just transition to a win, lose, or tie screen 
+        this.endGame = (result) => { 
+            game.config.result = result;
+            game.scene.stop("Game");
+            game.scene.start("ResultScreen");
         }
     }
 }

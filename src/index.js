@@ -10,6 +10,7 @@ import CharacterSelect from './scenes/CharacterSelect';
 import Game from './scenes/Game';
 import LoadingGame from './scenes/LoadingGame';
 import WelcomeScreen from './scenes/WelcomeScreen';
+import ResultScreen from './scenes/ResultScreen';
 
 import io from 'socket.io-client';
 
@@ -19,7 +20,7 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: [WelcomeScreen, CharacterSelect, Game, LoadingGame]
+    scene: [WelcomeScreen, CharacterSelect, Game, LoadingGame, ResultScreen]
 };
 
 const game = new Phaser.Game(config);
@@ -31,6 +32,5 @@ game.config.socket.on('connect', () => {
 });
 
 game.config.SocketHandler = new SocketHandler(game);
-//how do I pass in the scene, alternatively all the variables being put on scene right now could be put on game instead 
 
 
