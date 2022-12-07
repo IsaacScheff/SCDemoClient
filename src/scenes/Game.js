@@ -21,18 +21,19 @@ export default class Game extends Phaser.Scene
     }
       
     create (){
-        this.UIHandler = new UIHandler(this);
-        this.UIHandler.buildUI();
-        this.ButtonHandler = new ButtonHandler(this);
-        this.ButtonHandler.startingHumor();
-        this.ButtonHandler.moveType();
         
         this.game.config.StatHandler = new StatHandler(this.game);
-
+        
         this.game.config.playerStats = this.game.config.StatHandler.initialStats(this.game.config.playerC);
         this.game.config.opStats = this.game.config.StatHandler.initialStats(this.game.config.opponentC);
         //console.log(this.game.config.playerStats + this.game.config.opStats);
         
+        this.ButtonHandler = new ButtonHandler(this);
+        this.ButtonHandler.startingHumor();
+        this.ButtonHandler.moveType();
+        this.UIHandler = new UIHandler(this);
+        this.UIHandler.buildUI();
+
         const pStadium = this.add.image(400, 240, 'pStadium');
         const playerCharacter = this.add.image(260, 140, this.game.config.playerC);
         const oppoCharacter = this.add.image(550, 140, this.game.config.opponentC);

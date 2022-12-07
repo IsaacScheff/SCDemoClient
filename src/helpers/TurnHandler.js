@@ -32,7 +32,22 @@ export default class TurnHandler {
                     this.equipmentChange(move[1], player);
                     break;
                 default:
-                    console.log('resolveMove function, move type provided not a match: ' + move);
+                    console.log('resolveMove function first switch, move type provided not a match: ' + move);
+            }
+            if(player == 'opStats'){
+                switch(move[0]){
+                    case 'humor':
+                        game.config.opMoveMessage = 'Opponent channeled ' + move[1];
+                        break;
+                    case 'spell':
+                        game.config.opMoveMessage = 'Opponent cast ' + move[1];
+                        break;
+                    case 'equip': 
+                        game.config.opMoveMessage = 'Opponent swicthed item to ' + move[1];
+                        break;
+                    default:
+                        console.log('resolveMove function second switch, move type provided not a match: ' + move);
+                }
             }
         }
         
@@ -53,8 +68,17 @@ export default class TurnHandler {
         this.startTurn = () => {
             const scene = game.scene.scenes[2];
             
-            this.checkWinCon();
             scene.waitText.setVisible(false);
+            scene.moveRecap.setText(game.config.opMoveMessage).setVisible(true);
+            scene.openMoves.setVisible(true);
+        }
+        
+        this.showMoves = () => {
+            const scene = game.scene.scenes[2];
+            
+            scene.moveRecap.setVisible(false);
+            scene.openMoves.setVisible(false);
+            this.checkWinCon();
             this.turnUpdates();
             scene.HumorButton.button.setVisible(true);
             scene.SpellButton.button.setVisible(true);
@@ -86,12 +110,7 @@ export default class TurnHandler {
                 this.endGame('win');
             }
         }
-        /* this is where we get into tricky terrotory with cheating, 
-            for the purposes of the demo it's fine to handle the win/lost
-            locally, but when it comes to a wider release will need the
-            server to be able to verify results. Maybe ultimately the gamelogic wil need
-            to be server side to verify accuracy 
-        */
+
         this.endGame = (result) => { 
             game.config.result = result;
             game.scene.stop("Game");

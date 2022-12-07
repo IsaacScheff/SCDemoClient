@@ -31,9 +31,11 @@ export default class SocketHandler {
 
         game.config.socket.on('opponentDisconnect', () => {
             console.log("Opponent disconnected");
-            game.config.result = 'disconnect';
-            game.scene.stop("Game");
-            game.scene.start("ResultScreen");
+            if(!game.config.result){
+                game.config.result = 'disconnect';
+                game.scene.stop("Game");
+                game.scene.start("ResultScreen");
+            }
         });
     }
 }
