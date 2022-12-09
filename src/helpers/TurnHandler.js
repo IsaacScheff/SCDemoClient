@@ -25,7 +25,8 @@ export default class TurnHandler {
                     break;
                 case 'spell':
                     //console.log(move, player);
-                    spells[move[1]](game, player);
+                    //spells[move[1]](game, player);
+                    this.resolveSpell(move[1], player);
                     break;
                 case 'equip': 
                     //console.log(move, player);
@@ -94,6 +95,69 @@ export default class TurnHandler {
             //game.config[player][game.config[player].humor] += 25; 
             const humor = game.config[player].humor;
             game.config[player][humor] += 25;
+        }
+
+        this.resolveSpell = (spell, player) => {
+            //let damage = '';
+            const spellArray = spells[spell];
+            console.log(spellArray);
+            const targetPlayer = (player == 'playerStats' ? 'opStats' : 'playerStats');
+            switch(spellArray[3]){ //spell type is the fourth index in the spell array
+                case 'damage':
+                    //damage = spell[0]();
+                /* spell sub 0 is the damage function, sub 2 the humor type */
+                    game.config[targetPlayer].health -= this.spellDamage(spellArray[0](), spellArray[2], player); 
+                    break;
+                case 'curse':
+                    console.log('curse lol');
+
+                    break
+                //other cases
+                default:
+                    console.log('resolveSpell switch statement spell type issue:' + spellArray[3]);
+            }
+        }
+
+        this.spellDamage = (baseDamage, spellHumor, player) => {
+            const attackPlayer = game.config[player];
+            const defPlayer = game.config[(player == 'playerStats' ? 'opStats' : 'playerStats')];
+            let attackModifier = 3;
+
+            if(spellHumor == attackPlayer.humor)
+                attackModifier = 2;
+                
+                console.log('attackModifier ' + attackModifier);
+                console.log('attackPlayer.attack ' + attackPlayer.attack);
+                console.log('defPlayer.defense ' + defPlayer.defense);
+                console.log('baseDamage ' + baseDamage);
+                let damage = attackPlayer.attack/attackModifier * baseDamage * (100/(100 + defPlayer.defense)); 
+                //console.log(damage);
+
+            if(spellHumor == defPlayer.humor)
+                damage = damage/2;
+            
+            switch(spellHumor){
+                case 'Sanguine':
+                    if(defPlayer.humor == 'Melancholy')
+                        damage *= 2;
+                    break;
+                case 'Choleric':
+                    if(defPlayer.humor =='Phlegmatic')
+                        damage *= 2;
+                    break;
+                case 'Melancholy':
+                    if(defPlayer.humor == 'Sanguine')
+                        damage *= 2;
+                    break;
+                case 'Phlegmatic':
+                    if(defPlayer.humor == 'Choleric')
+                        damage *= 2;
+                    break;
+                default:
+                    console.log('function spellDamage switch statement error: ' + spellHumor);
+            }  
+            console.log('outputDamage ' + damage);
+            return damage;  //maybe round to an integer
         }
 
         this.checkWinCon = () => {

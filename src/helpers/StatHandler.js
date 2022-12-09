@@ -13,6 +13,9 @@ export default class StatHandler {
             stats.Choleric = characters[character][2]; 
             stats.Melancholy = characters[character][3];
             stats.Phlegmatic = characters[character][4];
+            stats.attack = characters[character][5];
+            stats.defense = characters[character][6];
+            stats.focus = characters[character][7];
             stats.humor = '';
             stats.itemEquipped = 'spellBook';
             stats.itemArray = ['staff', 'spellBook']; 
