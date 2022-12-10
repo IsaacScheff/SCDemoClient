@@ -130,7 +130,7 @@ export default class TurnHandler {
                 console.log('attackPlayer.attack ' + attackPlayer.attack);
                 console.log('defPlayer.defense ' + defPlayer.defense);
                 console.log('baseDamage ' + baseDamage);
-                let damage = attackPlayer.attack/attackModifier * baseDamage * (100/(100 + defPlayer.defense)); 
+                let damage = (attackPlayer.attack + baseDamage)/attackModifier * (100/(100 + defPlayer.defense)); 
                 //console.log(damage);
 
             if(spellHumor == defPlayer.humor)
@@ -157,7 +157,7 @@ export default class TurnHandler {
                     console.log('function spellDamage switch statement error: ' + spellHumor);
             }  
             console.log('outputDamage ' + damage);
-            return damage;  //maybe round to an integer
+            return Math.round(damage);  //maybe round to an integer
         }
 
         this.checkWinCon = () => {

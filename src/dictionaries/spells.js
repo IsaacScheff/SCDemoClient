@@ -42,7 +42,7 @@ export const spells = {
     */
     spFireball: [
         function(){
-            return 35; //damage functions return the base damage
+            return 3.5; //damage functions return the base damage
         },
         function(player, game){
             return (game.config[player].Sanguine >= 30 ? true : false);
