@@ -19,6 +19,7 @@ export default class StatHandler {
             stats.humor = '';
             stats.itemEquipped = 'spellBook';
             stats.itemArray = ['staff', 'spellBook']; 
+            stats.summons = []; //as players summon objects or creatures they are added to this array 
 
             return stats;
         }

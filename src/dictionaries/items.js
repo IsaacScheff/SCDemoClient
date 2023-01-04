@@ -3,6 +3,6 @@
 export const items = {
     //spellBook: ['spFireball', 'spDrainHumor'],
     //staff: ['spHeal', 'spBloodRitual']
-    spellBook: ['spFireball'],
-    staff: ['spFireball']
+    spellBook: ['spWindScythe'],
+    staff: ['spWindScythe']
 }

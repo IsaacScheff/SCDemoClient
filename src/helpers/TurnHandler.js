@@ -105,13 +105,18 @@ export default class TurnHandler {
             switch(spellArray[3]){ //spell type is the fourth index in the spell array
                 case 'damage':
                     //damage = spell[0]();
-                /* spell sub 0 is the damage function, sub 2 the humor type */
-                    game.config[targetPlayer].health -= this.spellDamage(spellArray[0](), spellArray[2], player); 
+                /* spellArray sub 0 is the damage function, sub 2 the humor type */
+                    game.config[targetPlayer].health -= this.spellDamage(spellArray[0](player, game), spellArray[2], player); 
                     break;
                 case 'curse':
                     console.log('curse lol');
-
-                    break
+                    break;
+                case 'enchant':
+                    console.log('buff or field effect');
+                    break;
+                case 'summon':
+                    console.log('creates something');
+                    break; 
                 //other cases
                 default:
                     console.log('resolveSpell switch statement spell type issue:' + spellArray[3]);
@@ -157,7 +162,7 @@ export default class TurnHandler {
                     console.log('function spellDamage switch statement error: ' + spellHumor);
             }  
             console.log('outputDamage ' + damage);
-            return Math.round(damage);  //maybe round to an integer
+            return Math.round(damage);  
         }
 
         this.checkWinCon = () => {
